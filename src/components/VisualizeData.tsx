@@ -1,6 +1,7 @@
 import {JSX} from "react";
 import {Summoner} from "../models/summoner";
 import useBestChampion from "../hooks/useBestChampion";
+import ChampionName from "./ChampionName";
 
 interface Props {
     summonerData: Summoner;
@@ -19,7 +20,9 @@ export default function VisualizeData({summonerData}: Props): JSX.Element {
             </div>
             <div className="title">Best champion information:
                 <div className="indent">ID: {bestChampion?.championId}</div>
-                <div className="indent">Name: {/*todo*/}</div>
+                <div className="indent">
+                    Name: <ChampionName id={bestChampion?.championId}/>
+                </div>
                 <div className="indent">Level: {bestChampion?.championLevel}</div>
                 <div className="indent">Points: {bestChampion?.championPoints}</div>
             </div>

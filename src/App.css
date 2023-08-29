@@ -35,6 +35,7 @@
 }
 
 
+
 @media screen and (max-width: 600px) {
     .all-side {
         flex-direction: column;
