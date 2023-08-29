@@ -15,8 +15,8 @@ function App() {
                 <GetSummoner setName={setName}/>
             </div>
             <div className="right-side">
-                {summonerData && (
-                    <VisualizeData summonerData={summonerData}/>
+                {summonerData &&  (
+                    <VisualizeData summonerData={summonerData} />
                 )}
             </div>
         </div>
