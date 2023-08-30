@@ -1,12 +1,18 @@
 import useChampionName from "../hooks/useChampionName";
 
-export default function ChampionName(championId: number | undefined) {
-    const championName = useChampionName(championId);
+interface ChampionNameProps {
+    id: number;
+}
+
+export default function ChampionName({id}: ChampionNameProps) {
+    const championName = useChampionName(id);
 
     return (
         <>
-            {championName?.name}
-            <div className="indent">Title: {championName?.title}</div>
+            {championName && (<>
+                {championName.name}
+                <div className="indent">Title: {championName.title}</div>
+            </>)}
         </>
     )
 }

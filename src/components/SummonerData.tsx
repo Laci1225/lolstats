@@ -3,7 +3,7 @@ import {JSX,ChangeEvent, useState} from "react";
 interface Props {
     setName: (name: string) => void;
 }
-export default function GetSummoner(props: Props): JSX.Element {
+export default function SummonerData(props: Props): JSX.Element {
     const [name, setName] = useState("");
 
     function handleNameChange(event: ChangeEvent<HTMLInputElement>): void {

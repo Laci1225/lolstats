@@ -6,7 +6,7 @@ export default function useSummonerData(name: string): Summoner | null {
     const [smData, setSmData] = useState<Summoner | null>(null);
     useEffect(() => {
         if (name) {
-            httpClient.get("/summoner/v4/summoners/by-name/" + name + "?api_key=")//TODO
+            httpClient.get("/summoner/v4/summoners/by-name/" + name)
                 .then(value => {
                     setSmData(value.data);
                 }).catch(error => {

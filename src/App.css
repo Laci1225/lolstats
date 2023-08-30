@@ -26,12 +26,13 @@
     text-align: left;
     justify-content: center;
     width: 60%;
-
 }
 
 .title {
     padding: 3em;
-    overflow: visible;
+}
+.indent{
+    word-break: break-all;
 }
 
 
@@ -39,5 +40,22 @@
 @media screen and (max-width: 600px) {
     .all-side {
         flex-direction: column;
+    }
+    .left-side {
+        padding: 2em 2em 0em 2em;
+        width: 80%;
+    }
+    .right-side {
+        justify-content: center;
+        width: 90%;
+    }
+    .title {
+        padding: 0.5em;
+    }
+    .all-side {
+        display: flex;
+        height: unset;
+        width: 100%;
+        margin: 0 auto;
     }
 }

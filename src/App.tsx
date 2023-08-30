@@ -1,22 +1,21 @@
 import './App.css'
-import GetSummoner from "./components/GetSummoner";
+import SummonerData from "./components/SummonerData.tsx";
 import {useState} from "react";
 import useSummonerData from "./hooks/useSummonerData";
-import VisualizeData from "./components/VisualizeData";
+import SummonerInfo from "./components/SummonerInfo.tsx";
 
 function App() {
     const [name, setName] = useState("");
 
     const summonerData = useSummonerData(name);
-    //const matchData = useMatchData();
     return (
         <div className="all-side">
             <div className="left-side">
-                <GetSummoner setName={setName}/>
+                <SummonerData setName={setName}/>
             </div>
             <div className="right-side">
                 {summonerData &&  (
-                    <VisualizeData summonerData={summonerData} />
+                    <SummonerInfo summonerData={summonerData} />
                 )}
             </div>
         </div>
