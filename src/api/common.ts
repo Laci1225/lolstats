@@ -1,6 +1,7 @@
 import axios from "axios"
 
 export const httpClient = axios.create({
-    baseURL: "https://eun1.api.riotgames.com/lol", headers: {
-    }
+    baseURL: "/api", headers: {
+        "X-Riot-Token": ""
+    } //,params: {"api_key": ""}
 })
