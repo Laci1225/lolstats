@@ -7,6 +7,7 @@ interface Props {
     summonerData: Summoner;
 }
 
+
 export default function SummonerInfo({summonerData}: Props): JSX.Element {
     const bestChampion = useBestChampion(summonerData.id);
     return (
@@ -28,9 +29,7 @@ export default function SummonerInfo({summonerData}: Props): JSX.Element {
                         <div className="indent">Level: {bestChampion.championLevel}</div>
                         <div className="indent">Points: {bestChampion.championPoints}</div>
                     </>
-                ) : "Nincs infó"}
+                ) : "Loading..."}
             </div>
-
-        </>
-    )
+        </>)
 }

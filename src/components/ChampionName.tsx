@@ -9,10 +9,10 @@ export default function ChampionName({id}: ChampionNameProps) {
 
     return (
         <>
-            {championName && (<>
+            {championName ? (<>
                 {championName.name}
                 <div className="indent">Title: {championName.title}</div>
-            </>)}
+            </>): "Loading..."}
         </>
     )
 }

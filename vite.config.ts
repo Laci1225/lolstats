@@ -10,6 +10,12 @@ export default defineConfig({
                 target: "https://eun1.api.riotgames.com/lol",
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/api/, ''),
+            },
+            "/apii": {
+                target: "https://europe.api.riotgames.com/lol",
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/apii/, ''),
+
             }
         }
     }
