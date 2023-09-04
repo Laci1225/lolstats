@@ -3,7 +3,7 @@ import useSummonerData from "../hooks/useSummonerData.ts";
 import SummonerData from "../components/SummonerData.tsx";
 import LastMatchData from "../components/LastMatchData.tsx";
 
-function  LastGameByName(){
+function LastGameByName() {
     const [name, setName] = useState("");
 
     const summonerData = useSummonerData(name);
@@ -11,6 +11,7 @@ function  LastGameByName(){
     return (
         <div className="all-side">
             <div className="left-side">
+                Last Game
                 <SummonerData setName={setName}/>
             </div>
             <div className="right-side">
@@ -23,4 +24,5 @@ function  LastGameByName(){
         </div>
     )
 }
+
 export default LastGameByName;

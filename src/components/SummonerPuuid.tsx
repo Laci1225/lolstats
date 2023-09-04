@@ -1,6 +1,9 @@
 import useSummonerPuuid from "../hooks/useSummonerPuuid.ts";
 
-export default function SummonerPuuid(puuid: string) {
+interface SummonerPuuidProps {
+    puuid: string
+}
+export default function SummonerPuuid({puuid}:SummonerPuuidProps) {
     const a = useSummonerPuuid(puuid);
     return (a?.name)
 }
