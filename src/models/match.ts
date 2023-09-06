@@ -8,6 +8,11 @@ interface Metadata {
 }
 
 interface Info {
-    gameCreation: string
+    gameCreation: string;
+    participants: Participant[];
 
+}
+
+interface Participant {
+    win: boolean;
 }

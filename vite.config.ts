@@ -6,16 +6,15 @@ export default defineConfig({
     plugins: [react()],
     server: {
         proxy: {
-            "/api": {
+            "/eun-api": {
                 target: "https://eun1.api.riotgames.com/lol",
                 changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/api/, ''),
+                rewrite: (path) => path.replace(/^\/eun-api/, ''),
             },
-            "/apii": {
+            "/europe-api": {
                 target: "https://europe.api.riotgames.com/lol",
                 changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/apii/, ''),
-
+                rewrite: (path) => path.replace(/^\/europe-api/, ''),
             }
         }
     }
