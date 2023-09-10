@@ -22,6 +22,10 @@ const router = (isAuthenticated: boolean) =>
             {
                 path: "/match",
                 element: <LastGameByName/>
+            },
+            {
+                path: "/:id",
+                element: 0
             }
         ]
     )

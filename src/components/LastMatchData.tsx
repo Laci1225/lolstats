@@ -7,7 +7,7 @@ interface LastMatchDataProps {
 }
 
 export default function LastMatchData({summonerData}: LastMatchDataProps) {
-    const lastGameId = useLastMatchId(summonerData.puuid);
+    const lastGameId = useLastMatchId(summonerData.puuid, 1);
 
-    return (<div><LastMatchInfo lastGameId={lastGameId}/> </div>)
+    return (<div className="title"><LastMatchInfo lastGameId={typeof lastGameId === "string" ? lastGameId : "0"}/></div>)
 }

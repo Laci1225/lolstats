@@ -1,8 +1,9 @@
-import {JSX,ChangeEvent, useState} from "react";
+import {JSX, ChangeEvent, useState} from "react";
 
 interface Props {
     setName: (name: string) => void;
 }
+
 export default function SummonerData(props: Props): JSX.Element {
     const [name, setName] = useState("");
 
@@ -11,18 +12,14 @@ export default function SummonerData(props: Props): JSX.Element {
     }
 
     return (
-        <div>
-            <div className="input-container">
+        <>
+            <div className="summoner-request">
                 <label htmlFor="lon">Summoner name:</label>
                 <input id="lon" type="text" onChange={handleNameChange}/>
-            </div>
-
-            <div>
                 <button onClick={() => {
-                    props.setName(name);
-                }}>Submit
+                    props.setName(name);}}>Submit
                 </button>
             </div>
-        </div>
+        </>
     )
 }

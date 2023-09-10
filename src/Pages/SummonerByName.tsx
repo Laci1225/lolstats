@@ -1,8 +1,9 @@
-import '../SummonerByName.css'
+import './summoner-by-name.css'
 import SummonerData from "../components/SummonerData.tsx";
 import {useState} from "react";
 import useSummonerData from "../hooks/useSummonerData.ts";
 import SummonerInfo from "../components/SummonerInfo.tsx";
+import LastFiveMatch from "../components/LastFiveMatches.tsx";
 
 function SummonerByName() {
     const [name, setName] = useState("");
@@ -10,16 +11,21 @@ function SummonerByName() {
     const summonerData = useSummonerData(name);
 
     return (
-        <div className="all-side">
-            <div className="left-side">
-                <SummonerData setName={setName}/>
-            </div>
-            <div className="right-side">
-                {
-                    summonerData && (
-                        <SummonerInfo summonerData={summonerData}/>
-                    )
-                }
+        <div className="bc">
+            <div className="all-side">
+                <div className="left-side">
+                    <SummonerData setName={setName}/>
+                </div>
+                <div className="right-side">
+                    {
+                        summonerData && (
+                            <>
+                                <SummonerInfo summonerData={summonerData}/>
+                                <LastFiveMatch summonerData={summonerData}/>
+                            </>
+                        )
+                    }
+                </div>
             </div>
         </div>
     )

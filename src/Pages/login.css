@@ -58,5 +58,12 @@ html {
     display: inline-flex;
     align-items: center;
     position: relative;
-    transform: translate(-20px,4px);
+    transform: translate(170px,3px);
+}
+label{
+    float: left;
+}
+input{
+    float: right;
+    margin: 0.2em;
 }
