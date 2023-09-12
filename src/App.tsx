@@ -5,6 +5,7 @@ import AuthStore from "./store/AuthStore.tsx";
 import {useState} from "react";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import LoginPage from "./Pages/LoginPage.tsx";
+import CurrentMatchData from "./components/CurrentMatchData.tsx";
 
 const router = (isAuthenticated: boolean) =>
     createBrowserRouter([
@@ -25,7 +26,7 @@ const router = (isAuthenticated: boolean) =>
             },
             {
                 path: "/:id",
-                element: 0
+                element: <CurrentMatchData/>
             }
         ]
     )

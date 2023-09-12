@@ -1,4 +1,4 @@
-import useLastMatchData from "../hooks/useLastMatchData.ts";
+import useMatchData from "../hooks/useMatchData.ts";
 import SummonerPuuid from "./SummonerPuuid.tsx";
 import {useState} from "react";
 
@@ -7,7 +7,7 @@ interface LastGameInfoProps {
 }
 
 export default function LastMatchInfo({lastGameId}: LastGameInfoProps) {
-    const lastMatchData = useLastMatchData(lastGameId);
+    const lastMatchData = useMatchData(lastGameId);
     const [isOpen, setOpen] = useState(false);
     const toggleDropdown = () => {
         setOpen(!isOpen);
