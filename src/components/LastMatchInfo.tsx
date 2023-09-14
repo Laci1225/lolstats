@@ -1,13 +1,17 @@
-import useMatchData from "../hooks/useMatchData.ts";
+import {useEffect, useState} from "react";
+import {getMatchData} from "../api/match.ts";
+import {Match} from "../models/match.ts";
 import SummonerPuuid from "./SummonerPuuid.tsx";
-import {useState} from "react";
 
 interface LastGameInfoProps {
     lastGameId: string
 }
 
 export default function LastMatchInfo({lastGameId}: LastGameInfoProps) {
-    const lastMatchData = useMatchData(lastGameId);
+    const [lastMatchData, setLastMatchData] = useState<Match>();
+    useEffect(() => {
+        getMatchData(lastGameId).then(value => setLastMatchData(value)).catch();
+    }, [lastGameId]);
     const [isOpen, setOpen] = useState(false);
     const toggleDropdown = () => {
         setOpen(!isOpen);
@@ -21,14 +25,14 @@ export default function LastMatchInfo({lastGameId}: LastGameInfoProps) {
             {isOpen && lastMatchData && (
                 <>
                     {
-                        lastMatchData?.metadata.participants
-                            .map(value =>
-                                <div key={value}>
-                                    {
-                                        <SummonerPuuid puuid={value}/>
-                                    }
-                                </div>
-                            )
+                         lastMatchData.metadata.participants
+                             .map(value =>
+                                 <div key={value}>
+                                     {
+                                         <SummonerPuuid puuid={value}/>
+                                     }
+                                 </div>
+                             )
                     }
                 </>
             )

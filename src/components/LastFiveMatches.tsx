@@ -14,11 +14,11 @@ export default function LastFiveMatch({summonerData}: LastMatchDataProps) {
 
 
     const lastGamesId = useLastMatchId(summonerData.puuid, 5);
-    return (<div className="title">{typeof lastGamesId !== "string" ? lastGamesId.map(
+    return (<div className="title">{lastGamesId.map(
         value =>
             <div key={value}>
                 <a onClick={() => {
                     onMatchIDClick(value)
                 }}>{value}</a>
-            </div>) : "error"} </div>)
+            </div>)} </div>)
 }

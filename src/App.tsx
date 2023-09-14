@@ -5,28 +5,35 @@ import AuthStore from "./store/AuthStore.tsx";
 import {useState} from "react";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import LoginPage from "./Pages/LoginPage.tsx";
-import CurrentMatchData from "./components/CurrentMatchData.tsx";
+import CurrentMatchData from "./Pages/CurrentMatchData.tsx";
 
 const router = (isAuthenticated: boolean) =>
     createBrowserRouter([
             {
                 path: '/',
                 element: (
-                    <ProtectedRoute safeToLoad={isAuthenticated} redirectTo={"/smn"}>
+                    <ProtectedRoute safeToLoad={!isAuthenticated} redirectTo={"/smn"}>
                         <LoginPage/>
                     </ProtectedRoute>)
             },
             {
                 path: "/smn",
-                element: <SummonerByName/>
+                element: (
+                    <ProtectedRoute safeToLoad={isAuthenticated} redirectTo={"/"}>
+                        <SummonerByName/>
+                    </ProtectedRoute>)
             },
             {
                 path: "/match",
-                element: <LastGameByName/>
-            },
+                element: (<ProtectedRoute safeToLoad={isAuthenticated} redirectTo={"/"}>
+                    <LastGameByName/>
+                </ProtectedRoute>)
+            }
+            ,
             {
                 path: "/:id",
-                element: <CurrentMatchData/>
+                element:
+                    <CurrentMatchData/>
             }
         ]
     )

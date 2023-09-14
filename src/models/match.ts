@@ -3,6 +3,7 @@ export interface Match {
     info: Info
 }
 
+
 interface Metadata {
     participants: string[];
 }
@@ -13,6 +14,6 @@ interface Info {
 
 }
 
-interface Participant {
+export interface Participant {
     win: boolean;
 }

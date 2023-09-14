@@ -7,7 +7,7 @@ interface ProtectedRootProps {
 }
 
 export default function ProtectedRoute({safeToLoad, redirectTo, children}: PropsWithChildren<ProtectedRootProps>) {
-    if (safeToLoad)
+    if (!safeToLoad)
         return <Navigate to={redirectTo} replace/>
     return children;
 }
