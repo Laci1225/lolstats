@@ -16,4 +16,8 @@ interface Info {
 
 export interface Participant {
     win: boolean;
+    kills: number
+    deaths: number
+    assists: number
+    puuid:string
 }
