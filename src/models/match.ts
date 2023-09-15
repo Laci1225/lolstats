@@ -10,6 +10,8 @@ interface Metadata {
 
 interface Info {
     gameCreation: string;
+    gameDuration: number;
+    gameEndTimestamp: string;
     participants: Participant[];
 
 }

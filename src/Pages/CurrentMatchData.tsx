@@ -17,14 +17,23 @@ export default function CurrentMatchData() {
         if (id) {
             getMatchData(id).then(value => setCurrentMatch(value))
         }
-            
+
     }, [id])
     return (<>
         {currentMatch ? (<>
                 <div className="all-data">
 
                     <div className="macro-data">
-                        <div>{currentMatch.info.gameCreation}</div>
+                        <div>{new Date(currentMatch.info.gameCreation).toLocaleString()}</div>
+                        <div>{
+                            (Math.floor(currentMatch.info.gameDuration / 3600) !== 0) ? (
+                                `${Math.floor(currentMatch.info.gameDuration / 3600)} h`
+                            ) : ""}
+                            {
+                                `${Math.floor(currentMatch.info.gameDuration / 60)} min ` +
+                                `${currentMatch.info.gameDuration % 60} sec`
+                            }</div>
+                        <div>{new Date(currentMatch.info.gameEndTimestamp).toLocaleString()}</div>
                         {}
                     </div>
                     <div className="overall">
