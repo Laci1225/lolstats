@@ -1,31 +1,43 @@
 import {useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {Match} from "../models/match.ts";
-import {getMatchData} from "../api/match.ts";
-import Winners from "../components/Winners.tsx";
+import {getMatchData, getSummonerPuuid} from "../api/match.ts";
 import "./current-match-data.css"
-import Losers from "../components/Losers.tsx";
+import Team from "../components/Team.tsx";
 
 type CurrentMatchDataParams = {
     id: string
 }
+//TODO date-fns@2.30.0
 export default function CurrentMatchData() {
     const {id} = useParams<CurrentMatchDataParams>();
     const [currentMatch, setCurrentMatch] = useState<Match>();
-
+    const [names, setNames] = useState<string[]>([]);
     useEffect(() => {
         if (id) {
             getMatchData(id).then(value => setCurrentMatch(value))
         }
-
     }, [id])
+    const getSummonerNames = useCallback(() => {
+        return Promise.all(
+            currentMatch.metadata.participants.map(puuid =>
+                getSummonerPuuid(puuid))
+        ).then(summoners => summoners.map(summoner => summoner.name));
+    }, [currentMatch]);
+    useEffect(() => {
+        if (currentMatch)
+            getSummonerNames().then(
+                summonerNames => setNames(summonerNames));
+    }, [currentMatch, getSummonerNames]);
+
+
     return (<>
-        {currentMatch ? (<>
+        {currentMatch && names.length ===10 ? (<>
                 <div className="all-data">
 
                     <div className="macro-data">
-                        <div>{new Date(currentMatch.info.gameCreation).toLocaleString()}</div>
-                        <div>{
+                        <div>{new Date(currentMatch.info.gameCreation).toString()}</div>
+                        <div>{//TODO function
                             (Math.floor(currentMatch.info.gameDuration / 3600) !== 0) ? (
                                 `${Math.floor(currentMatch.info.gameDuration / 3600)} h`
                             ) : ""}
@@ -38,10 +50,12 @@ export default function CurrentMatchData() {
                     </div>
                     <div className="overall">
                         <div className="winners">
-                            <Winners currentMatch={currentMatch}/>
+                            <Team currentMatch={currentMatch} blue={true}
+                                  names={names.slice(0, 5)}/>
                         </div>
                         <div className="losers">
-                            <Losers currentMatch={currentMatch}/>
+                            <Team currentMatch={currentMatch} blue={false}
+                                  names={names.slice(5, 10)}/>
                         </div>
                     </div>
                 </div>
