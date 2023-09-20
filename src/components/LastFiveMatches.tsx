@@ -16,15 +16,13 @@ export default function LastFiveMatch({summonerData}: LastMatchDataProps) {
 
     const lastGamesId = useLastMatchId(summonerData.puuid, 5);
     return (
-        <CurrentMatchData fromSummonerPage={lastGamesId[0]}/>)
-    {
-        /*}
-        <div className="title flex-col">{lastGamesId.map(
-        value =>
-            <div key={value}>
-                {/*<a onClick={() => {
-                    onMatchIDClick(value)
-                }}>{value}</a>*/
-        /*</div>)} </div>)*/
-    }
+        <div className="title flex-col">{
+            lastGamesId.map(
+                gameId =>
+                    <div key={gameId}>
+                        <CurrentMatchData fromSummonerPage={gameId} summonerData={summonerData}/>)
+                    </div>
+            )}
+        </div>
+    )
 }

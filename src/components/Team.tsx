@@ -1,4 +1,5 @@
 import {Match} from "../models/match.ts";
+
 interface TeamsProps {
     currentMatch: Match
     blue: boolean
@@ -12,15 +13,15 @@ export default function Team({currentMatch, blue, names}: TeamsProps) {
     return (<>
         <>
 
-                {
-                    team.map((value, index) =>
-                        <div className={"player-cell"} key={index}>
-                            <div className="w-1/2">{names[index]}</div>
-                            <div className="w-1/4">{value.win ? "Win" : "Lose"}</div>
-                            <div className="w-1/4">{value.kills}/{value.deaths}/{value.assists}</div>
-                        </div>
-                    )
-                }
+            {
+                team.map((participant, index) =>
+                    <div className={"player-cell"} key={index}>
+                        <div className="w-1/2">{names[index]}</div>
+                        <div className="w-1/4">{participant.win ? "Win" : "Lose"}</div>
+                        <div className="w-1/4">{participant.kills}/{participant.deaths}/{participant.assists}</div>
+                    </div>
+                )
+            }
         </>
     </>);
 }

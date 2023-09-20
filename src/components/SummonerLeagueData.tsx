@@ -17,7 +17,7 @@ export default function SummonerLeagueData({summonerId}: LeagueDataProps) {
             {leagueData ? (
                 <div className="flex h-fit bg-gray-700 rounded mt-2">
                     <div className="w-1/3">
-                        <img className="w-max" src={`src/img/tiers/${leagueData.tier.toLowerCase()}.webp`} alt="Alt"/>
+                        <img className="w-max" src={`src/img/tiers/${leagueData.tier.toLowerCase()}.webp`} alt="TierLogo"/>
                     </div>
                     <div className="w-1/3 text-xs">
                         <div>{leagueData.tier} {leagueData.rank}</div>

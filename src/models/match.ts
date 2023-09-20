@@ -3,13 +3,12 @@ export interface Match {
     info: Info
 }
 
-
 interface Metadata {
     participants: string[];
 }
 
 interface Info {
-    gameCreation: string;
+    gameCreation: number;
     gameDuration: number;
     gameEndTimestamp: number;
     participants: Participant[];
@@ -18,8 +17,9 @@ interface Info {
 
 export interface Participant {
     win: boolean;
-    kills: number
-    deaths: number
-    assists: number
-    puuid:string
+    kills: number;
+    deaths: number;
+    assists: number;
+    puuid:string;
+    championName: string;
 }
