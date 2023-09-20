@@ -14,9 +14,9 @@ export default function SummonerInput(props: Props): JSX.Element {
     return (
         <div className={""}>
             <div className="block h-16"></div>
-            <div className="summoner-request w-3/5 p-5 mx-auto items-center justify-between flex">
+            <div className="max-w-screen-lg min-w-1024 p-5 mx-auto items-center justify-between flex">
                 <label htmlFor="lon">Summoner name:</label>
-                <input  id="lon" type="text" onChange={handleNameChange}/>
+                <input className="bg-white text-black" id="lon" type="text" onChange={handleNameChange}/>
                 <button onClick={() => {
                     props.setName(name);}}>Submit
                 </button>

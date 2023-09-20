@@ -4,20 +4,22 @@ import {Match} from "../models/match.ts";
 import {getMatchData, getSummonerPuuid} from "../api/match.ts";
 import "./current-match-data.css"
 import Team from "../components/Team.tsx";
-import {toDate} from 'date-fns'
+import {toDate, formatDistanceToNow, secondsToMinutes, secondsToHours} from 'date-fns'
 
 type CurrentMatchDataParams = {
     id: string
 }
-interface Param{
-    id2: string
+
+interface Param {
+    fromSummonerPage: string
 }
+
 //TODO date-fns@2.30.0
-export default function CurrentMatchData({id2}: Param) {
+export default function CurrentMatchData({fromSummonerPage}: Param) {
 
     let {id} = useParams<CurrentMatchDataParams>();
-    if (id2)
-        id = id2
+    if (fromSummonerPage)
+        id = fromSummonerPage
     const [currentMatch, setCurrentMatch] = useState<Match>();
     const [names, setNames] = useState<string[]>([]);
     useEffect(() => {
@@ -37,34 +39,42 @@ export default function CurrentMatchData({id2}: Param) {
                 summonerNames => setNames(summonerNames));
     }, [currentMatch, getSummonerNames]);
 
+    const date = (date: number) => {
+        const hour = secondsToHours(date);
+        const min = secondsToMinutes(date) - hour * 60;
+        const sec = date - hour * 3600 - min * 60;
+        return hour ? `${hour} hour ${min} min ${sec} sec` : `${min} min ${sec} sec`;
+    }
+
+    const [isOpen, setOpen] = useState(false);
+    const toggleDropdown = () => {
+        setOpen(!isOpen);
+    };
 
     return (<>
         {currentMatch && names.length === 10 ? (<>
-                <div className="all-data">
+                <div className="flex flex-col m-2">
 
                     <div className="macro-data">
                         <div>{new Date(currentMatch.info.gameCreation).toLocaleString()}</div>
-                        <div>{//TODO function
-                            (Math.floor(currentMatch.info.gameDuration / 3600) !== 0) ? (
-                                `${Math.floor(currentMatch.info.gameDuration / 3600)} h`
-                            ) : ""}
-                            {
-                                `${Math.floor(currentMatch.info.gameDuration / 60)} min ` +
-                                `${currentMatch.info.gameDuration % 60} sec`
-                            }</div>
-                        <div>{ toDate(currentMatch.info.gameEndTimestamp).toLocaleString()}</div>
-                        {}
+                        <div>{date(currentMatch.info.gameDuration)}</div>
+                        <div>{formatDistanceToNow(toDate(currentMatch.info.gameEndTimestamp))}</div>
                     </div>
-                    <div className="overall">
-                        <div className="winners">
+                    <button onClick={toggleDropdown}>
+                    {isOpen ? 'Collapse' : 'Expand'}
+                </button>
+                    {isOpen && (<>
+                    <div className="flex flex-row">
+                        <div className="bg-blue-900 w-1/2 mx-4 rounded">
                             <Team currentMatch={currentMatch} blue={true}
                                   names={names.slice(0, 5)}/>
                         </div>
-                        <div className="losers">
+                        <div className="bg-blue-900 w-1/2 mx-4 rounded">
                             <Team currentMatch={currentMatch} blue={false}
                                   names={names.slice(5, 10)}/>
                         </div>
                     </div>
+                            </>)}
                 </div>
             </>) :
             "Loading..."

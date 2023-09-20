@@ -33,7 +33,7 @@ const router = (isAuthenticated: boolean) =>
             {
                 path: "/:id",
                 element:
-                    <CurrentMatchData id2={"0"}/>
+                    <CurrentMatchData fromSummonerPage={"0"}/>
             }
         ]
     )

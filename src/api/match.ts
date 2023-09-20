@@ -1,7 +1,7 @@
 import {Match} from "../models/match.ts";
 import {httpClientEun1, httpClientEurope} from "./common.ts";
 import {Summoner} from "../models/summoner.ts";
-import {SummonerLeague} from "../models/summonerLeague.ts";
+import {LeagueData} from "../models/summonerLeague.ts";
 
 export const getMatchData = (lastGameId: string): Promise<Match> => {
     /*const [game, setGame] = useState<Match>();
@@ -25,7 +25,7 @@ export const getSummonerPuuid = (puuid: string): Promise<Summoner> => {
     }, [puuid])
     return smData;*/
 }
-export const getSummonerLeagueData = (summonerId: string):Promise<SummonerLeague> => {
+export const getSummonerLeagueData = (summonerId: string):Promise<LeagueData[]> => {
     return httpClientEun1.get(`/league/v4/entries/by-summoner/${summonerId}`)
         .then(value => value.data)
 }

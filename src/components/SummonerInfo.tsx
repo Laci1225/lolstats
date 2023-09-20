@@ -13,18 +13,16 @@ export default function SummonerInfo({summonerData}: Props): JSX.Element {
     const bestChampion = useBestChampion(summonerData.id);
     return (
         <>
-            <div className="title">Summoner information:
-                <SummonerLeagueData summonerId={summonerData.id}/>
-                <div className="whitespace-nowrap overflow-auto indent">ID: {summonerData.id}</div>
-                <div className="indent">AccountId: {summonerData.accountId}</div>
-                <div className="indent">PuuId: {summonerData.puuid}</div>
+            <div className="bg-gray-700 rounded mt-2">Summoner information:
                 <div className="indent">Name: {summonerData.name}</div>
                 <div className="indent">Summoner level: {summonerData.summonerLevel}</div>
+                {//<div className="whitespace-nowrap overflow-auto indent">ID: {summonerData.id}</div>
+                }
             </div>
-            <div className="title">Best champion information:
+            <SummonerLeagueData summonerId={summonerData.id}/>
+            <div className="bg-gray-700 rounded mt-2">Best champion information:
                 {bestChampion ? (
                     <>
-                        <div className="indent">ID: {bestChampion.championId}</div>
                         <div className="indent">
                             Name: <ChampionName id={bestChampion.championId}/>
                         </div>

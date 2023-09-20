@@ -16,7 +16,7 @@ export default function LastFiveMatch({summonerData}: LastMatchDataProps) {
 
     const lastGamesId = useLastMatchId(summonerData.puuid, 5);
     return (
-        <CurrentMatchData id2={lastGamesId[0]}/>)
+        <CurrentMatchData fromSummonerPage={lastGamesId[0]}/>)
     {
         /*}
         <div className="title flex-col">{lastGamesId.map(

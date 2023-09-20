@@ -13,19 +13,19 @@ function SummonerByName() {
         navigate(`/match`)
     }*/
     return (
-        <div className="w-screen">
-            <div className="inline w-3/6">
-                <div className="">
+        <div className="">
+            <div className="flex flex-col">
+                <div className="bg-gray-700">
                     <SummonerInput setName={setName}/>
                 </div>
-                <div className="w-9/12 mx-auto">
+                <div className="min-w-1024 mx-auto  w-1024">
                     {
                         summonerData && (
-                            <div className={"flex border-4 border-amber-400"}>
+                            <div className={"flex border-4 border-amber-400 "}>
                                 <div className={"w-1/5 break-words"}>
                                     <SummonerInfo summonerData={summonerData}/>
                                     </div>
-                                    <div className={"w-4/6 block mx-auto"}>
+                                    <div className={"w-full block bg-gray-700 rounded m-2"}>
                                     <LastFiveMatch summonerData={summonerData}/>
                                 </div>
                                 <div className="title">
