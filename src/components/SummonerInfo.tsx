@@ -2,6 +2,7 @@ import {JSX} from "react";
 import {Summoner} from "../models/summoner";
 import useBestChampion from "../hooks/useBestChampion";
 import ChampionName from "./ChampionName";
+import SummonerLeagueData from "./SummonerLeagueData.tsx";
 
 interface Props {
     summonerData: Summoner;
@@ -13,7 +14,8 @@ export default function SummonerInfo({summonerData}: Props): JSX.Element {
     return (
         <>
             <div className="title">Summoner information:
-                <div className="indent">ID: {summonerData.id}</div>
+                <SummonerLeagueData summonerId={summonerData.id}/>
+                <div className="whitespace-nowrap overflow-auto indent">ID: {summonerData.id}</div>
                 <div className="indent">AccountId: {summonerData.accountId}</div>
                 <div className="indent">PuuId: {summonerData.puuid}</div>
                 <div className="indent">Name: {summonerData.name}</div>

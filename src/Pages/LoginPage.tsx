@@ -7,6 +7,9 @@ import './login.css'
 export default function LoginPage() {
     const authStoreValue = useContext(AuthStore);
     const navigate = useNavigate();
+    authStoreValue?.setIsAuthenticated(true);
+
+    navigate("/smn")
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");

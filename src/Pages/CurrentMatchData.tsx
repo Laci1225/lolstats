@@ -4,13 +4,20 @@ import {Match} from "../models/match.ts";
 import {getMatchData, getSummonerPuuid} from "../api/match.ts";
 import "./current-match-data.css"
 import Team from "../components/Team.tsx";
+import {toDate} from 'date-fns'
 
 type CurrentMatchDataParams = {
     id: string
 }
+interface Param{
+    id2: string
+}
 //TODO date-fns@2.30.0
-export default function CurrentMatchData() {
-    const {id} = useParams<CurrentMatchDataParams>();
+export default function CurrentMatchData({id2}: Param) {
+
+    let {id} = useParams<CurrentMatchDataParams>();
+    if (id2)
+        id = id2
     const [currentMatch, setCurrentMatch] = useState<Match>();
     const [names, setNames] = useState<string[]>([]);
     useEffect(() => {
@@ -32,11 +39,11 @@ export default function CurrentMatchData() {
 
 
     return (<>
-        {currentMatch && names.length ===10 ? (<>
+        {currentMatch && names.length === 10 ? (<>
                 <div className="all-data">
 
                     <div className="macro-data">
-                        <div>{new Date(currentMatch.info.gameCreation).toString()}</div>
+                        <div>{new Date(currentMatch.info.gameCreation).toLocaleString()}</div>
                         <div>{//TODO function
                             (Math.floor(currentMatch.info.gameDuration / 3600) !== 0) ? (
                                 `${Math.floor(currentMatch.info.gameDuration / 3600)} h`
@@ -45,7 +52,7 @@ export default function CurrentMatchData() {
                                 `${Math.floor(currentMatch.info.gameDuration / 60)} min ` +
                                 `${currentMatch.info.gameDuration % 60} sec`
                             }</div>
-                        <div>{new Date(currentMatch.info.gameEndTimestamp).toLocaleString()}</div>
+                        <div>{ toDate(currentMatch.info.gameEndTimestamp).toLocaleString()}</div>
                         {}
                     </div>
                     <div className="overall">
