@@ -1,5 +1,5 @@
 * {
-    --bc-image: url("src/img/login.jpg");
+    --bc-image: url("../img/login/login.jpg");
 }
 
 html {

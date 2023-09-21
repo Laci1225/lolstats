@@ -41,27 +41,35 @@ export default function CurrentMatchData2({currentMatch, summonerData}: CurrentM
         setOpen(!isOpen);
     };
     const backgroundColor = searchedSummoner?.win ? "bg-blue-900" : "bg-red-900";
+    const arrowBackgroundColor = searchedSummoner?.win ? "bg-blue-800" : "bg-red-800";
+    const matchLeftBorder = searchedSummoner?.win ? "border-l-8 border-l-blue-400" : "border-l-8 border-l-red-400";
+    const arrowColor = searchedSummoner?.win ? "" : "fill-red";
     return (
         <>
             {
                 searchedSummoner ? (<>
-                    <div className="flex flex-col m-2">
-                        <div className={`flex flex-row w-full text-sm ${backgroundColor} rounded p-1`}>
+                    <div className={`flex flex-col mb-2 rounded ${ matchLeftBorder}`}>
+                        <div className={`flex flex-row w-full text-sm ${backgroundColor} rounded p-1 bg-blue-`}>
                             <div className="w-2/12 flex flex-col">
                                 <div>{formatDistanceToNowStrict(toDate(currentMatch.info.gameEndTimestamp), {addSuffix: true})}</div>
                                 <div>{searchedSummoner.win ? "Victory" : "Lose"}</div>
                                 <div>{date(currentMatch.info.gameDuration)}</div>
                             </div>
                             <div className="w-3/12">
+
+                                <img src={`src/img/champions/${searchedSummoner.championId}.png`} alt=""/>
                                 {searchedSummoner.win ? "Win" : "Lose"}
                                 {searchedSummoner.kills}/{searchedSummoner.deaths}/{searchedSummoner.assists}
                             </div>
                             <div className="w-2/12">{}</div>
                             <div className="w-2/12">{}</div>
                             <div className="w-2/12">{}</div>
-                            <button className="w-1/12 bg-transparent " onClick={toggleDropdown}>
-                                {isOpen ? 'ˇ' : '^'}
+                            <div className="w-1/12">
+                            <button className={`w-1/2 ${arrowBackgroundColor} h-full flex justify-center items-center p-0 float-right`} onClick={toggleDropdown}>
+                                {isOpen ? <img className={`rotate-180 ${arrowColor}`} src="src/img/download.svg" alt="Less"/> :
+                                    <img className={`${arrowColor}`} src="src/img/download.svg" alt="More"/>}
                             </button>
+                                </div>
                         </div>
                         {isOpen && names.length === 10 && (
                             <>
@@ -70,12 +78,12 @@ export default function CurrentMatchData2({currentMatch, summonerData}: CurrentM
                                     <div>{date(currentMatch.info.gameDuration)}</div>
                                     <div>{toDate(currentMatch.info.gameEndTimestamp).toLocaleString()}</div>
                                 </div>
-                                <div className="flex flex-row my-2">
-                                    <div className="bg-blue-900 w-1/2 mr-1 rounded">
+                                <div className={`flex flex-row my-2`}>
+                                    <div className={`${backgroundColor} w-1/2 mr-1 rounded`}>
                                         <Team currentMatch={currentMatch} blue={true}
                                               names={names.slice(0, 5)}/>
                                     </div>
-                                    <div className="bg-blue-900 w-1/2 ml-1 rounded">
+                                    <div className={`${backgroundColor} w-1/2 mr-1 rounded`}>
                                         <Team currentMatch={currentMatch} blue={false}
                                               names={names.slice(5, 10)}/>
                                     </div>

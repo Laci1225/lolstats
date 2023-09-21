@@ -22,4 +22,5 @@ export interface Participant {
     assists: number;
     puuid:string;
     championName: string;
+    championId: string;
 }

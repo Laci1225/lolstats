@@ -9,3 +9,9 @@
 .w-1024{
     width: 1024px;
 }
+.fill-red{
+    fill: red;
+}
+img{
+    fill:red;
+}

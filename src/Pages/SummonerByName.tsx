@@ -25,7 +25,7 @@ function SummonerByName() {
                                 <div className={"w-1/5 break-words"}>
                                     <SummonerInfo summonerData={summonerData}/>
                                     </div>
-                                    <div className={"w-full block bg-gray-700 rounded m-2"}>
+                                    <div className={"w-full block rounded m-2"}>
                                     <LastFiveMatch summonerData={summonerData}/>
                                 </div>
                                 <div className="title">
