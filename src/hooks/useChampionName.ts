@@ -18,7 +18,5 @@ export default function useChampionName(id: number) {
                 }).catch(reason => alert(reason))
         }, [id]
     )
-    console.log(id)
-    console.log(cNames);
     return cNames;
 }

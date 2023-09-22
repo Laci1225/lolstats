@@ -33,7 +33,7 @@ export default function CurrentMatchData({fromSummonerPage, summonerData}: Param
                     <CurrentMatchData2 currentMatch={currentMatch} summonerData={summonerData}/>
                 </>
             )
-            : "Loading..."
+            : ""
         }
     </>)
 }

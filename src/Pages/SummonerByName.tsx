@@ -3,7 +3,7 @@ import SummonerInput from "../components/SummonerInput.tsx";
 import {useState} from "react";
 import useSummonerData from "../hooks/useSummonerData.ts";
 import SummonerInfo from "../components/SummonerInfo.tsx";
-import LastFiveMatch from "../components/LastFiveMatches.tsx";
+import LastXMatch from "../components/LastXMatches.tsx";
 
 function SummonerByName() {
     const [name, setName] = useState("");
@@ -22,15 +22,13 @@ function SummonerByName() {
                     {
                         summonerData && (
                             <div className={"flex border-4 border-amber-400 "}>
-                                <div className={"w-1/5 break-words"}>
+                                <div className={"w-2/6 break-words"}>
                                     <SummonerInfo summonerData={summonerData}/>
-                                    </div>
-                                    <div className={"w-full block rounded m-2"}>
-                                    <LastFiveMatch summonerData={summonerData}/>
+                                </div>
+                                <div className={"w-full block rounded m-2"}>
+                                    <LastXMatch summonerData={summonerData}/>
                                 </div>
                                 <div className="title">
-                                    {//<button onClick={onMatchIDClick}>Last game</button>
-                                    }
                                 </div>
                             </div>
                         )

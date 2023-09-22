@@ -16,8 +16,6 @@ export default function SummonerInfo({summonerData}: Props): JSX.Element {
             <div className="bg-gray-700 rounded mt-2">Summoner information:
                 <div className="indent">Name: {summonerData.name}</div>
                 <div className="indent">Summoner level: {summonerData.summonerLevel}</div>
-                {//<div className="whitespace-nowrap overflow-auto indent">ID: {summonerData.id}</div>
-                }
             </div>
             <SummonerLeagueData summonerId={summonerData.id}/>
             <div className="bg-gray-700 rounded mt-2">Best champion information:
