@@ -1,7 +1,7 @@
 import {JSX} from "react";
-import {Summoner} from "../models/summoner";
-import useBestChampion from "../hooks/useBestChampion";
-import ChampionName from "./ChampionName";
+import {Summoner} from "../../../models/summoner.ts";
+import useBestChampion from "../../../hooks/useBestChampion.ts";
+import ChampionName from "../lastxmatch/ChampionName.tsx";
 import SummonerLeagueData from "./SummonerLeagueData.tsx";
 
 interface Props {

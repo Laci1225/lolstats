@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+/*import {useEffect, useState} from "react";
 import {httpClientEurope} from "../api/common.ts";
 
 export default function useLastXMatchId(puuid: string, from: number,to:number) {
@@ -11,4 +11,4 @@ export default function useLastXMatchId(puuid: string, from: number,to:number) {
             });
     }, [puuid, from, to]);
     return gameId
-}
+}*/

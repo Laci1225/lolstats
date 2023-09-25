@@ -1,4 +1,4 @@
-import {getSummonerPuuid} from "../api/match.ts";
+/*import {getSummonerPuuid} from "../api/match.ts";
 import {useEffect, useState} from "react";
 import {Summoner} from "../models/summoner.ts";
 
@@ -12,4 +12,4 @@ export default function SummonerPuuid({puuid}: SummonerPuuidProps) {
         getSummonerPuuid(puuid).then(value => setA(value));
     }, []);
     return a?.name
-}
+}*/

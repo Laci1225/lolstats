@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+/*import {useEffect, useState} from "react";
 import {getMatchData} from "../api/match.ts";
 import {Match} from "../models/match.ts";
 import SummonerPuuid from "./SummonerPuuid.tsx";
@@ -39,4 +39,4 @@ export default function LastMatchInfo({lastGameId}: LastGameInfoProps) {
             }
         </>
     )
-}
+}*/

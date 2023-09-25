@@ -1,4 +1,4 @@
-import useChampionName from "../hooks/useChampionName";
+import useChampionName from "../../../hooks/useChampionName.ts";
 
 interface ChampionNameProps {
     id: number;

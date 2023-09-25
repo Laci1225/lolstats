@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
-import {getSummonerLeagueData} from "../api/match.ts";
-import {LeagueData} from "../models/summonerLeague.ts";
+import {getSummonerLeagueData} from "../../../api/match.ts";
+import {LeagueData} from "../../../models/summonerLeague.ts";
 
 interface LeagueDataProps {
     summonerId: string

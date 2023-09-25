@@ -1,24 +1,16 @@
-import './summoner-by-name.css'
-import SummonerInput from "../components/SummonerInput.tsx";
-import {useState} from "react";
-import useSummonerData from "../hooks/useSummonerData.ts";
-import SummonerInfo from "../components/SummonerInfo.tsx";
-import LastXMatch from "../components/LastXMatches.tsx";
+import SummonerInput from "../components/summonerbyname/lastxmatch/SummonerInput.tsx";
 
 function SummonerByName() {
-    const [name, setName] = useState("");
-    const summonerData = useSummonerData(name);
-    //const navigate = useNavigate();
-    /*const onMatchIDClick = () => {
-        navigate(`/match`)
-    }*/
+    //const [name, setName] = useState("");
+    //const summonerData = useSummonerData(name);
+
     return (
         <div className="">
             <div className="flex flex-col">
                 <div className="bg-gray-700">
-                    <SummonerInput setName={setName}/>
+                    <SummonerInput setName={name => name}/>
                 </div>
-                <div className="min-w-1024 mx-auto  w-1024">
+                {/*<div className="min-w-1024 mx-auto  w-1024">
                     {
                         summonerData && (
                             <div className={"flex border-4 border-amber-400 "}>
@@ -33,7 +25,7 @@ function SummonerByName() {
                             </div>
                         )
                     }
-                </div>
+                </div>*/}
             </div>
         </div>
     )

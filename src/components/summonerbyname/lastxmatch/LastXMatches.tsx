@@ -1,18 +1,14 @@
-import {Summoner} from "../models/summoner.ts";
+import {Summoner} from "../../../models/summoner.ts";
 //import {useNavigate} from "react-router-dom";
-import CurrentMatchData from "../Pages/CurrentMatchData.tsx";
+import CurrentMatchData from "../../../pages/CurrentMatchData.tsx";
 import {useEffect, useState} from "react";
-import {getLastXMatchId} from "../api/match.ts";
+import {getLastXMatchId} from "../../../api/match.ts";
 
 interface LastMatchDataProps {
     summonerData: Summoner
 }
 
 export default function LastXMatch({summonerData}: LastMatchDataProps) {
-    /*const navigate = useNavigate();
-    const onMatchIDClick = (value: string) => {
-        navigate(`/${value}`)
-    }*/
     const [displayedMatchCount, setDisplayedMatchCount] = useState(0);
     const [lastXMatch, setLastXMatch] = useState<string[]>([]);
 
@@ -26,7 +22,7 @@ export default function LastXMatch({summonerData}: LastMatchDataProps) {
                 {lastXMatch.map(
                     gameId =>
                         <div key={gameId}>
-                            <CurrentMatchData fromSummonerPage={gameId} summonerData={summonerData}/>
+                            <CurrentMatchData id={gameId} summonerData={summonerData}/>
                         </div>
                 )}
             </div>

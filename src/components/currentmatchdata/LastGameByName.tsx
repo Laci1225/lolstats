@@ -1,7 +1,7 @@
-import {useState} from "react";
+/*import {useState} from "react";
 import useSummonerData from "../hooks/useSummonerData.ts";
 import SummonerInput from "../components/SummonerInput.tsx";
-import LastMatchData from "../components/LastMatchData.tsx";
+import LastMatchData from "../components/currentmatchdata/LastMatchData.tsx";
 import './summoner-by-name.css'
 
 function LastGameByName() {
@@ -29,4 +29,4 @@ function LastGameByName() {
     )
 }
 
-export default LastGameByName;
+export default LastGameByName;*/

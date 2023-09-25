@@ -1,11 +1,11 @@
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import SummonerByName from "./Pages/SummonerByName.tsx";
-import LastGameByName from "./Pages/LastGameByName.tsx";
+import SummonerByName from "./pages/SummonerByName.tsx";
 import AuthStore from "./store/AuthStore.tsx";
-import {useState} from "react";
+import { useState} from "react";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
-import LoginPage from "./Pages/LoginPage.tsx";
-import CurrentMatchData from "./Pages/CurrentMatchData.tsx";
+import LoginPage from "./pages/LoginPage.tsx";
+import CurrMatchTypedIn from "./components/currmatchtypedin/CurrMatchTypedIn.tsx";
+
 
 const router = (isAuthenticated: boolean) =>
     createBrowserRouter([
@@ -24,17 +24,17 @@ const router = (isAuthenticated: boolean) =>
                     </ProtectedRoute>)
             },
             {
-                path: "/match",
-                element: (<ProtectedRoute safeToLoad={isAuthenticated} redirectTo={"/"}>
-                    <LastGameByName/>
+                path: "/:summonerName",
+                element: (<ProtectedRoute safeToLoad={isAuthenticated} redirectTo={""}>
+                    <CurrMatchTypedIn/>
                 </ProtectedRoute>)
             }
-            ,
+            /*,
             {
-                path: "/:id",
+                path: "/:matchId",
                 element:
-                    <CurrentMatchData fromSummonerPage={"0"}/>
-            }
+                    <CurrentMatchData id={"0"}/>
+            }*/
         ]
     )
 

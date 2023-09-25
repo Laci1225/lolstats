@@ -15,7 +15,11 @@ export const getSummonerLeagueData = (summonerId: string): Promise<LeagueData[]>
     return httpClientEun1.get(`/league/v4/entries/by-summoner/${summonerId}`)
         .then(value => value.data)
 }
-export const getLastXMatchId = (puuid: string, from: number, to: number):Promise<string[]> => {
+export const getLastXMatchId = (puuid: string, from: number, to: number): Promise<string[]> => {
     return httpClientEurope.get(`/match/v5/matches/by-puuid/${puuid}/ids?start=${from}&count=${to}`)
         .then(value => value.data)
+}
+export const getSummonerData = (name: string) => {
+    return httpClientEun1.get("/summoner/v4/summoners/by-name/" + name)
+        .then(value => value.data);
 }

@@ -1,31 +1,28 @@
-import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {Match} from "../models/match.ts";
 import {getMatchData} from "../api/match.ts";
-import "./current-match-data.css"
-import CurrentMatchData2 from "../components/CurrentMatchData2.tsx";
+import CurrentMatchData2 from "../components/summonerbyname/lastxmatch/CurrentMatchData2.tsx";
 import {Summoner} from "../models/summoner.ts";
+import {useParams} from "react-router-dom";
 
-type CurrentMatchDataParams = {
-    id: string;
-}
 
 interface Param {
-    fromSummonerPage: string;
+    id: string;
     summonerData: Summoner
 }
 
-export default function CurrentMatchData({fromSummonerPage, summonerData}: Param) {
+type CurrentMatchDataParams = {
+    matchId: string;
+}
 
-    let {id} = useParams<CurrentMatchDataParams>();
-    if (fromSummonerPage)
-        id = fromSummonerPage
+export default function CurrentMatchData({id, summonerData}: Param) {
+
+    const {matchId} = useParams<CurrentMatchDataParams>();
+
     const [currentMatch, setCurrentMatch] = useState<Match>();
     useEffect(() => {
-        if (id) {
-            getMatchData(id).then(value => setCurrentMatch(value))
-        }
-    }, [id])
+        getMatchData(matchId ? matchId : id).then(value => setCurrentMatch(value))
+    }, [id, matchId])
 
     return (<>
         {currentMatch ? (

@@ -1,0 +1,140 @@
+import {MouseEventHandler, useCallback, useEffect, useState} from "react";
+import {getSummonerPuuid} from "../../../api/match.ts";
+import {formatDistanceToNowStrict, toDate} from "date-fns";
+import {Match, Participant} from "../../../models/match.ts";
+import Team from "./Team.tsx";
+import {Summoner} from "../../../models/summoner.ts";
+import {formatDate} from "../../../utils/date.ts";
+
+interface CurrentMatch2Param {
+    currentMatch: Match;
+    summonerData: Summoner
+}
+
+interface TimeFramesProps {
+    gameEndTimestamp: number;
+    gameDuration: number;
+    hasWon: boolean
+}
+
+function TimeFrames({gameEndTimestamp, gameDuration, hasWon}: TimeFramesProps) {
+    return (<div className="w-2/12 flex flex-col">
+        <div>{formatDistanceToNowStrict(toDate(gameEndTimestamp), {addSuffix: true})}</div>
+        <div>{hasWon ? "Victory" : "Lose"}</div>
+        <div>{formatDate(gameDuration)}</div>
+    </div>)
+}
+
+interface ChampionAndScoreParams {
+    searchedSummoner: Participant
+}
+
+function ChampionAndScore({searchedSummoner}: ChampionAndScoreParams) {
+    return (
+        <div className="w-3/12">
+            <img src={`src/img/champions/${searchedSummoner.championId}.png`} alt=""/>
+            {searchedSummoner.win ? "Win" : "Lose"}
+            {searchedSummoner.kills}/{searchedSummoner.deaths}/{searchedSummoner.assists}
+        </div>
+    )
+}
+
+interface DropdownButtonProps {
+    arrowBackgroundColor: string;
+    toggleDropdown: MouseEventHandler;
+    isOpen: boolean;
+    arrowColor: string;
+}
+
+function DropdownButton({arrowBackgroundColor, toggleDropdown, isOpen, arrowColor}: DropdownButtonProps) {
+    return (
+        <div className="w-1/12">
+            <button
+                className={`w-1/2 ${arrowBackgroundColor} h-full flex justify-center items-center p-0 float-right`}
+                onClick={toggleDropdown}>
+                {isOpen ?
+                    <svg className={`rotate-180 ${arrowColor}`} width="24" height="24" viewBox="0 0 24 24"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 13.2 16.5 9l1.5 1.4-6 5.6-6-5.6L7.5 9z" fillRule="nonzero"/>
+                    </svg>
+
+
+                    :
+                    <svg className={`${arrowColor}`} width="24" height="24" viewBox="0 0 24 24"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 13.2 16.5 9l1.5 1.4-6 5.6-6-5.6L7.5 9z" fillRule="nonzero"/>
+                    </svg>
+                }
+            </button>
+        </div>)
+}
+
+export default function CurrentMatchData2({currentMatch, summonerData}: CurrentMatch2Param) {
+
+    const [names, setNames] = useState<string[]>([]);
+    const [searchedSummoner, setSearchedSummoner] = useState<Participant>()
+    const [isOpen, setOpen] = useState(false);
+    const backgroundColor = searchedSummoner?.win ? "bg-blue-900" : "bg-red-900";
+    const arrowBackgroundColor = searchedSummoner?.win ? "bg-blue-800" : "bg-red-800";
+    const matchLeftBorder = searchedSummoner?.win ? "border-l-8 border-l-blue-400" : "border-l-8 border-l-red-400";
+    const arrowColor = searchedSummoner?.win ? "fill-blue-500" : "fill-red-500";
+
+    const toggleDropdown = () => {
+        setOpen(!isOpen);
+    };
+
+    const getSummonerNames = useCallback(() => {
+        return Promise.all(
+            currentMatch.metadata.participants.map(puuid =>
+                getSummonerPuuid(puuid))
+        ).then(summoners => summoners.map(summoner => summoner.name));
+    }, [currentMatch]);
+
+    useEffect(() => {
+        currentMatch.info.participants.filter(value => value.puuid === summonerData.puuid).map(value => setSearchedSummoner(value))
+        if (isOpen)
+            getSummonerNames().then(
+                summonerNames => setNames(summonerNames));
+    }, [currentMatch, getSummonerNames, isOpen, summonerData.puuid]);
+
+
+    return (
+        <>
+            {
+                searchedSummoner ? (<>
+                    <div className={`flex flex-col mb-2 rounded ${matchLeftBorder}`}>
+                        <div className={`flex flex-row w-full text-sm ${backgroundColor} rounded p-1 bg-blue-`}>
+                            <TimeFrames gameEndTimestamp={currentMatch.info.gameEndTimestamp}
+                                        gameDuration={currentMatch.info.gameDuration} hasWon={searchedSummoner.win}/>
+                            <ChampionAndScore searchedSummoner={searchedSummoner}/>
+                            <div className="w-2/12">{}</div>
+                            <div className="w-2/12">{}</div>
+                            <div className="w-2/12">{}</div>
+                            <DropdownButton arrowBackgroundColor={arrowBackgroundColor} toggleDropdown={toggleDropdown}
+                                            isOpen={isOpen} arrowColor={arrowColor}/>
+                        </div>
+                        {isOpen && names.length === 10 && (
+                            <>
+                                <div className="flex mx-[10%] h-[10vh] items-center justify-between">
+                                    <div>{toDate(currentMatch.info.gameCreation).toLocaleString()}</div>
+                                    <div>{formatDate(currentMatch.info.gameDuration)}</div>
+                                    <div>{toDate(currentMatch.info.gameEndTimestamp).toLocaleString()}</div>
+                                </div>
+                                <div className={`flex flex-row my-2 h-[30vh]`}>
+                                    <div className={`${backgroundColor} w-1/2 mr-1 rounded`}>
+                                        <Team currentMatch={currentMatch} blue={true}
+                                              names={names.slice(0, 5)}/>
+                                    </div>
+                                    <div className={`${backgroundColor} w-1/2 mr-1 rounded`}>
+                                        <Team currentMatch={currentMatch} blue={false}
+                                              names={names.slice(5, 10)}/>
+                                    </div>
+                                </div>
+                            </>
+                        )}
+                    </div>
+                </>) : "Loading..."
+            }
+        </>
+    )
+}
