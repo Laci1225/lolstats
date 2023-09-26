@@ -49,16 +49,13 @@ interface DropdownButtonProps {
 function DropdownButton({arrowBackgroundColor, toggleDropdown, isOpen, arrowColor}: DropdownButtonProps) {
     return (
         <div className="w-1/12">
-            <button
-                className={`w-1/2 ${arrowBackgroundColor} h-full flex justify-center items-center p-0 float-right`}
-                onClick={toggleDropdown}>
+            <button className={`w-1/2 ${arrowBackgroundColor} h-full flex justify-center items-center p-0 float-right`}
+                    onClick={toggleDropdown}>
                 {isOpen ?
                     <svg className={`rotate-180 ${arrowColor}`} width="24" height="24" viewBox="0 0 24 24"
                          xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 13.2 16.5 9l1.5 1.4-6 5.6-6-5.6L7.5 9z" fillRule="nonzero"/>
                     </svg>
-
-
                     :
                     <svg className={`${arrowColor}`} width="24" height="24" viewBox="0 0 24 24"
                          xmlns="http://www.w3.org/2000/svg">
@@ -69,13 +66,50 @@ function DropdownButton({arrowBackgroundColor, toggleDropdown, isOpen, arrowColo
         </div>)
 }
 
+interface MacroDataProps {
+    gameCreation: number;
+    gameDuration: number;
+    gameEndTimestamp: number
+}
+
+function MacroData({gameCreation, gameDuration, gameEndTimestamp}: MacroDataProps) {
+    return (
+        <div className="flex mx-[10%] h-[10vh] items-center justify-between">
+            <div>{toDate(gameCreation).toLocaleString()}</div>
+            <div>{formatDate(gameDuration)}</div>
+            <div>{toDate(gameEndTimestamp).toLocaleString()}</div>
+        </div>
+    )
+}
+
+interface GameStatisticProps {
+    backgroundColor: string
+    currentMatch: Match;
+    names: string[];
+}
+
+function GameStatistic({backgroundColor, currentMatch, names}: GameStatisticProps) {
+    return (
+        <div className={`flex flex-row h-[30vh]`}>
+            <div className={`${backgroundColor} w-1/2 mr-1 rounded`}>
+                <Team currentMatch={currentMatch} blue={true}
+                      names={names.slice(0, 5)}/>
+            </div>
+            <div className={`${backgroundColor} w-1/2 mr-1 rounded`}>
+                <Team currentMatch={currentMatch} blue={false}
+                      names={names.slice(5, 10)}/>
+            </div>
+        </div>
+    )
+}
+
 export default function CurrentMatchData2({currentMatch, summonerData}: CurrentMatch2Param) {
 
     const [names, setNames] = useState<string[]>([]);
     const [searchedSummoner, setSearchedSummoner] = useState<Participant>()
     const [isOpen, setOpen] = useState(false);
-    const backgroundColor = searchedSummoner?.win ? "bg-blue-900" : "bg-red-900";
-    const arrowBackgroundColor = searchedSummoner?.win ? "bg-blue-800" : "bg-red-800";
+    const backgroundColor = searchedSummoner?.win ? "bg-blue-900/50" : "bg-red-900/50";
+    const arrowBackgroundColor = searchedSummoner?.win ? "bg-blue-800  hover:bg-blue-900/50" : "bg-red-800 hover:bg-red-900/50";
     const matchLeftBorder = searchedSummoner?.win ? "border-l-8 border-l-blue-400" : "border-l-8 border-l-red-400";
     const arrowColor = searchedSummoner?.win ? "fill-blue-500" : "fill-red-500";
 
@@ -102,38 +136,29 @@ export default function CurrentMatchData2({currentMatch, summonerData}: CurrentM
         <>
             {
                 searchedSummoner ? (<>
-                    <div className={`flex flex-col mb-2 rounded ${matchLeftBorder}`}>
-                        <div className={`flex flex-row w-full text-sm ${backgroundColor} rounded p-1 bg-blue-`}>
-                            <TimeFrames gameEndTimestamp={currentMatch.info.gameEndTimestamp}
-                                        gameDuration={currentMatch.info.gameDuration} hasWon={searchedSummoner.win}/>
-                            <ChampionAndScore searchedSummoner={searchedSummoner}/>
-                            <div className="w-2/12">{}</div>
-                            <div className="w-2/12">{}</div>
-                            <div className="w-2/12">{}</div>
-                            <DropdownButton arrowBackgroundColor={arrowBackgroundColor} toggleDropdown={toggleDropdown}
-                                            isOpen={isOpen} arrowColor={arrowColor}/>
+                        <div className={`flex flex-col mb-2 rounded`}>
+                            <div className={`flex flex-row w-full text-sm ${backgroundColor} rounded p-1  ${matchLeftBorder}`}>
+                                <TimeFrames gameEndTimestamp={currentMatch.info.gameEndTimestamp}
+                                            gameDuration={currentMatch.info.gameDuration} hasWon={searchedSummoner.win}/>
+                                <ChampionAndScore searchedSummoner={searchedSummoner}/>
+                                <div className="w-2/12">{}</div>
+                                <div className="w-2/12">{}</div>
+                                <div className="w-2/12">{}</div>
+                                <DropdownButton arrowBackgroundColor={arrowBackgroundColor} toggleDropdown={toggleDropdown}
+                                                isOpen={isOpen} arrowColor={arrowColor}/>
+                            </div>
+                            {isOpen && (
+                                <>
+                                    <MacroData gameCreation={currentMatch.info.gameCreation}
+                                               gameDuration={currentMatch.info.gameDuration}
+                                               gameEndTimestamp={currentMatch.info.gameEndTimestamp}/>
+                                    <GameStatistic backgroundColor={backgroundColor} currentMatch={currentMatch}
+                                                   names={names}/>
+                                </>
+                            )}
                         </div>
-                        {isOpen && names.length === 10 && (
-                            <>
-                                <div className="flex mx-[10%] h-[10vh] items-center justify-between">
-                                    <div>{toDate(currentMatch.info.gameCreation).toLocaleString()}</div>
-                                    <div>{formatDate(currentMatch.info.gameDuration)}</div>
-                                    <div>{toDate(currentMatch.info.gameEndTimestamp).toLocaleString()}</div>
-                                </div>
-                                <div className={`flex flex-row my-2 h-[30vh]`}>
-                                    <div className={`${backgroundColor} w-1/2 mr-1 rounded`}>
-                                        <Team currentMatch={currentMatch} blue={true}
-                                              names={names.slice(0, 5)}/>
-                                    </div>
-                                    <div className={`${backgroundColor} w-1/2 mr-1 rounded`}>
-                                        <Team currentMatch={currentMatch} blue={false}
-                                              names={names.slice(5, 10)}/>
-                                    </div>
-                                </div>
-                            </>
-                        )}
-                    </div>
-                </>) : "Loading..."
+                    </>) :
+                    "Loading..."
             }
         </>
     )

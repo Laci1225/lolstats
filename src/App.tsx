@@ -1,7 +1,7 @@
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import SummonerByName from "./pages/SummonerByName.tsx";
 import AuthStore from "./store/AuthStore.tsx";
-import { useState} from "react";
+import {useState} from "react";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import CurrMatchTypedIn from "./components/currmatchtypedin/CurrMatchTypedIn.tsx";
@@ -25,9 +25,12 @@ const router = (isAuthenticated: boolean) =>
             },
             {
                 path: "/:summonerName",
-                element: (<ProtectedRoute safeToLoad={isAuthenticated} redirectTo={""}>
+                element: (
+                    //<ProtectedRoute safeToLoad={isAuthenticated} redirectTo={"/"}>
                     <CurrMatchTypedIn/>
-                </ProtectedRoute>)
+                    //</ProtectedRoute>
+                )
+
             }
             /*,
             {
