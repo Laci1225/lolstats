@@ -14,14 +14,14 @@ export default function LastXMatch({summonerData}: LastMatchDataProps) {
 
     useEffect(() => {
         getLastXMatchId(summonerData.puuid,
-            displayedMatchCount, displayedMatchCount + 10).then(matches => setLastXMatch(matches));
+            0, displayedMatchCount + 10).then(matches => setLastXMatch(matches));
     }, [displayedMatchCount, summonerData]);
     return (
         <>
             <div className="">
                 {lastXMatch.map(
                     gameId =>
-                        <div key={gameId}>
+                        <div key={gameId} className={``}>
                             <CurrentMatchData id={gameId} summonerData={summonerData}/>
                         </div>
                 )}

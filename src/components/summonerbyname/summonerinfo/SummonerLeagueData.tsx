@@ -1,6 +1,8 @@
 import {useEffect, useState} from "react";
 import {getSummonerLeagueData} from "../../../api/match.ts";
 import {LeagueData} from "../../../models/summonerLeague.ts";
+import romanToArabic from "../../../utils/romanToArabic.ts";
+import titleCase from "../../../utils/titleCase.ts";
 
 interface LeagueDataProps {
     summonerId: string
@@ -17,10 +19,11 @@ export default function SummonerLeagueData({summonerId}: LeagueDataProps) {
             {leagueData ? (
                 <div className="flex h-fit bg-gray-700 rounded mt-2">
                     <div className="w-1/3">
-                        <img className="w-max" src={`src/img/tiers/${leagueData.tier.toLowerCase()}.webp`} alt="TierLogo"/>
+                        <img className="w-max" src={`src/img/tiers/${leagueData.tier.toLowerCase()}.webp`}
+                             alt="TierLogo"/>
                     </div>
                     <div className="w-1/3 text-xs">
-                        <div>{leagueData.tier} {leagueData.rank}</div>
+                        <div>{titleCase(leagueData.tier)} {romanToArabic(leagueData.rank)}</div>
                         <div> {leagueData.leaguePoints}LP</div>
                     </div>
                     <div className="w-1/3 text-xs">

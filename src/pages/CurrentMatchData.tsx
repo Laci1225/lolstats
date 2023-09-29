@@ -26,9 +26,9 @@ export default function CurrentMatchData({id, summonerData}: Param) {
 
     return (<>
         {currentMatch ? (
-                <>
+                <div className={"border-0   "}>
                     <CurrentMatchData2 currentMatch={currentMatch} summonerData={summonerData}/>
-                </>
+                </div>
             )
             : ""
         }

@@ -23,4 +23,6 @@ export interface Participant {
     puuid:string;
     championName: string;
     championId: string;
+    summoner1Id: string;
+    summoner2Id: string;
 }

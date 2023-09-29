@@ -30,7 +30,7 @@ export default function CurrMatchTypedIn() {
                     {
                         summonerData && (
                             <div className={"flex border-4 border-amber-400 "}>
-                                <div className={"w-2/6 break-words"}>
+                                <div className={"w-5/12 break-words"}>
                                     <SummonerInfo summonerData={summonerData}/>
                                 </div>
                                 <div className={"w-full block rounded m-2"}>

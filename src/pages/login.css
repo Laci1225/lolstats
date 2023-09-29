@@ -1,10 +1,6 @@
 * {
     --bc-image: url("../img/login/login.jpg");
 }
-
-html {
-}
-
 .background-blur {
     background: var(--bc-image) no-repeat #1a1a1a;
     background-size: cover;
